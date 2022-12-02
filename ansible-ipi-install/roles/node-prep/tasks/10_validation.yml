@@ -425,6 +425,8 @@
       hostname: "{{ chassis_result.results[item|int].item }}"
     with_sequence: start=0 end="{{ numworkers|int + nummasters|int - 1 }}"
     when:
+      - chassis_result is defined
+      - firmware_result is defined
       - not chassis_result.results[{{ item }}].failed|bool
       - not firmware_result.results[{{ item }}].failed|bool
       - "'Dell' in chassis_result.results[{{ item }}].redfish_facts.chassis.entries[0].Manufacturer"
@@ -448,6 +450,8 @@
       hostname: "{{ chassis_result.results[item|int].item }}"
     with_sequence: start=0 end="{{ numworkers|int + nummasters|int - 1 }}"
     when:
+      - chassis_result is defined
+      - firmware_result is defined
       - not chassis_result.results[{{ item }}].failed|bool
       - not firmware_result.results[{{ item }}].failed|bool
       - "'HPE' in chassis_result.results[{{ item }}].redfish_facts.chassis.entries[0].Manufacturer"
